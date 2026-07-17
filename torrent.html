@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Torrent — dweb tool</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="network-bg"></canvas>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">dweb<span>tool</span></a>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="ipfs.html" class="nav-link">IPFS</a>
+        <a href="torrent.html" class="nav-link active">Torrent</a>
+        <a href="blossom.html" class="nav-link">Blossom</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="page-content">
+      <h1>Torrent</h1>
+      <p class="page-intro">
+        Download torrents directly in your browser with
+        <a href="https://webtorrent.io" class="text-link" target="_blank" rel="noopener">WebTorrent</a>.
+        Paste a magnet link or info hash, or open a .torrent file. Note:
+        browsers can only reach WebRTC-capable peers found through WebSocket
+        trackers, so a torrent with many regular peers may still have few
+        web peers &mdash; patience helps.
+      </p>
+
+      <div class="card">
+        <label for="torrent-input" class="field-label">Magnet link or info hash</label>
+        <input id="torrent-input" class="text-input" type="text" spellcheck="false"
+               placeholder="magnet:?xt=urn:btih:… or a 40-char info hash">
+
+        <div class="action-row">
+          <button id="fetch-btn" class="btn btn-primary">Fetch torrent</button>
+          <button id="file-btn" class="btn">Open .torrent file</button>
+          <input id="torrent-file-input" type="file" accept=".torrent,application/x-bittorrent" class="hidden">
+        </div>
+
+        <div class="run-controls hidden" id="run-controls">
+          <span class="spinner" id="spinner"></span>
+          <span id="status-line">Idle</span>
+          <button id="cancel-btn" class="btn btn-small">Cancel</button>
+        </div>
+
+        <div class="progress-wrap hidden" id="progress-wrap">
+          <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+          <span class="progress-text" id="progress-text"></span>
+        </div>
+
+        <div class="torrent-meta hidden" id="torrent-meta">
+          <h2 id="torrent-name"></h2>
+          <table class="gateway-table" id="file-table">
+            <thead>
+              <tr><th>File</th><th>Size</th><th></th></tr>
+            </thead>
+            <tbody id="file-tbody"></tbody>
+          </table>
+        </div>
+
+        <div class="log hidden" id="log" aria-live="polite"></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/network-bg.js"></script>
+  <script src="js/main.js"></script>
+  <script type="module" src="js/torrent.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPFS Fetch — dweb tool</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="network-bg"></canvas>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">dweb<span>tool</span></a>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="ipfs.html" class="nav-link active">IPFS</a>
+        <a href="torrent.html" class="nav-link">Torrent</a>
+        <a href="blossom.html" class="nav-link">Blossom</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="page-content">
+      <h1>IPFS Fetch</h1>
+      <p class="page-intro">
+        Fetch a file from the IPFS network by its CID, directly in your browser.
+        Choose between a peer-to-peer fetch with Helia (verified, but discovery
+        can take a while) or checking public HTTP gateways (fast, but the
+        gateways are trusted to return the right data).
+      </p>
+
+      <div class="card">
+        <label for="cid-input" class="field-label">Content identifier (CID)</label>
+        <input id="cid-input" class="text-input" type="text" spellcheck="false"
+               placeholder="bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi">
+        <label for="filename-input" class="field-label">Filename for the download <span class="muted">(optional)</span></label>
+        <input id="filename-input" class="text-input" type="text" spellcheck="false"
+               placeholder="file.bin">
+
+        <div class="option-grid">
+          <div class="option">
+            <h2>Option 1 &mdash; Helia (p2p)</h2>
+            <p>
+              Spins up an IPFS node in this tab and retrieves the file from
+              peers, verifying every block against its hash. Content that few
+              peers hold can take minutes to discover &mdash; this option keeps
+              trying and reports what it is doing instead of giving up early.
+            </p>
+            <button id="helia-btn" class="btn btn-primary">Fetch with Helia</button>
+          </div>
+
+          <div class="option">
+            <h2>Option 2 &mdash; Public gateways</h2>
+            <p>
+              Asks a list of well-known public HTTP gateways whether they can
+              serve this CID, then downloads the file &mdash; splitting it
+              across several responding gateways in parallel when possible.
+              Note: data fetched this way is not hash-verified locally.
+            </p>
+            <button id="gateway-check-btn" class="btn">Check gateways</button>
+            <button id="gateway-dl-btn" class="btn btn-primary" disabled>Download via gateways</button>
+          </div>
+        </div>
+
+        <div class="run-controls hidden" id="run-controls">
+          <span class="spinner" id="spinner"></span>
+          <span id="status-line">Idle</span>
+          <button id="cancel-btn" class="btn btn-small">Cancel</button>
+        </div>
+
+        <div class="progress-wrap hidden" id="progress-wrap">
+          <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+          <span class="progress-text" id="progress-text"></span>
+        </div>
+
+        <table class="gateway-table hidden" id="gateway-table">
+          <thead>
+            <tr><th>Gateway</th><th>Status</th><th>Ranges</th><th>Size</th></tr>
+          </thead>
+          <tbody id="gateway-tbody"></tbody>
+        </table>
+
+        <div class="log hidden" id="log" aria-live="polite"></div>
+
+        <div class="result hidden" id="result">
+          <a id="download-link" class="btn btn-primary" download>Save file</a>
+          <span id="result-info" class="muted"></span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/network-bg.js"></script>
+  <script src="js/main.js"></script>
+  <script type="module" src="js/ipfs.js"></script>
+</body>
+</html>

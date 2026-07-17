@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>dweb tool</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="network-bg"></canvas>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="logo">dweb<span>tool</span></a>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav">
+        <a href="#" class="nav-link active">Home</a>
+        <a href="ipfs.html" class="nav-link">IPFS</a>
+        <a href="torrent.html" class="nav-link">Torrent</a>
+        <a href="blossom.html" class="nav-link">Blossom</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="hero">
+    <div class="hero-content">
+      <h1>dweb tool</h1>
+      <p>
+        A tool for handling decentralized file sharing in the browser &mdash;
+        fetch, verify, and share files across decentralized networks,
+        entirely client-side, no server required.
+      </p>
+    </div>
+  </main>
+
+  <script src="js/network-bg.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

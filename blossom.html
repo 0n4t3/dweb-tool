@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blossom — dweb tool</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="network-bg"></canvas>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">dweb<span>tool</span></a>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="ipfs.html" class="nav-link">IPFS</a>
+        <a href="torrent.html" class="nav-link">Torrent</a>
+        <a href="blossom.html" class="nav-link active">Blossom</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="page-content">
+      <h1>Blossom</h1>
+      <p class="page-intro">
+        Fetch a file from Blossom servers (blob storage used alongside Nostr)
+        by its SHA-256 hash. The tool asks every configured server whether it
+        holds the blob, downloads it &mdash; from several servers in parallel
+        when possible &mdash; and verifies the result against the hash locally,
+        so you never have to trust an individual server.
+      </p>
+
+      <div class="card">
+        <label for="hash-input" class="field-label">Blob hash (SHA-256, or a Blossom URL)</label>
+        <input id="hash-input" class="text-input" type="text" spellcheck="false"
+               placeholder="b1674191a88ec5cdd733e4240a81803105dc412d6c6708d53ab94fc248f4f553">
+        <label for="filename-input" class="field-label">Filename for the download <span class="muted">(optional)</span></label>
+        <input id="filename-input" class="text-input" type="text" spellcheck="false"
+               placeholder="file.bin">
+
+        <div class="action-row">
+          <button id="check-btn" class="btn">Check servers</button>
+          <button id="download-btn" class="btn btn-primary">Download</button>
+          <button id="servers-btn" class="btn">Manage servers <span class="muted" id="server-count"></span></button>
+        </div>
+
+        <div class="run-controls hidden" id="run-controls">
+          <span class="spinner" id="spinner"></span>
+          <span id="status-line">Idle</span>
+          <button id="cancel-btn" class="btn btn-small">Cancel</button>
+        </div>
+
+        <div class="progress-wrap hidden" id="progress-wrap">
+          <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+          <span class="progress-text" id="progress-text"></span>
+        </div>
+
+        <table class="gateway-table hidden" id="server-table">
+          <thead>
+            <tr><th>Server</th><th>Status</th><th>Ranges</th><th>Size</th></tr>
+          </thead>
+          <tbody id="server-tbody"></tbody>
+        </table>
+
+        <div class="log hidden" id="log" aria-live="polite"></div>
+
+        <div class="result hidden" id="result">
+          <a id="download-link" class="btn btn-primary" download>Save file</a>
+          <span id="result-info" class="muted"></span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Server management modal -->
+  <div class="modal-overlay hidden" id="server-modal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-head">
+        <h2 id="modal-title">Blossom servers</h2>
+        <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+      </div>
+      <p class="muted modal-hint">
+        These servers are queried for every blob. Changes are saved in this
+        browser; the bootstrap list is used until you make changes.
+      </p>
+      <ul class="server-list" id="server-list"></ul>
+      <div class="modal-add-row">
+        <input id="new-server-input" class="text-input" type="text" spellcheck="false"
+               placeholder="blossom.example.com">
+        <button id="add-server-btn" class="btn btn-primary">Add</button>
+      </div>
+      <div class="modal-foot">
+        <button id="reset-servers-btn" class="btn btn-small">Reset to bootstrap list</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/network-bg.js"></script>
+  <script src="js/main.js"></script>
+  <script type="module" src="js/blossom.js"></script>
+</body>
+</html>

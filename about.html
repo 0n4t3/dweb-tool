@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — dweb tool</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="network-bg"></canvas>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">dweb<span>tool</span></a>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="ipfs.html" class="nav-link">IPFS</a>
+        <a href="torrent.html" class="nav-link">Torrent</a>
+        <a href="blossom.html" class="nav-link">Blossom</a>
+        <a href="about.html" class="nav-link active">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="page-content">
+      <h1>About</h1>
+
+      <div class="card prose">
+        <p>
+          Decentralized technology is great, and I'm always glad to see it used,
+          at least until I need to access something on it. For something like
+          IPFS, I have the node software on my desktop, but it still takes time
+          to boot up. If I'm on my phone, or I give a hash to somebody else
+          who's hardly even familiar with IPFS, it's always straight to a
+          gateway.
+        </p>
+
+        <p>
+          Gateways are great, but they effectively create a centralized HTTP
+          server with extra steps. Now we're relying on the single
+          ipfs.io/ipfs server, hoping that doesn't go down and take our stuff
+          with it. I <s>made</s> instructed Claude to make this to
+          be an easy means of retrieving content on various decentralized
+          file sharing protocols. If I run into a file it's an easy way to
+          download it without relying on gateways or a local node. If I want 
+          to share something on my blog via any of the supported protocols, 
+          this client is easy to link beside it so that anyone can access the
+          file while interfacing directly with the network(s) WITHOUT having
+          to install anything. 
+        </p>
+
+        <p>
+          This project is
+          <a href="https://github.com/0n4t3/dweb-tool" class="text-link" target="_blank" rel="noopener">open source</a>,
+          licensed under GNU v3.
+        </p>
+
+        <p>
+          Credit to
+          <a href="https://github.com/ipfs/helia" class="text-link" target="_blank" rel="noopener">Helia</a>
+          for IPFS handling and
+          <a href="https://github.com/webtorrent/webtorrent" class="text-link" target="_blank" rel="noopener">WebTorrent</a>
+          for torrent handling.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/network-bg.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
