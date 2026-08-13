@@ -31,7 +31,10 @@ const addServerBtn = $('add-server-btn');
 const resetServersBtn = $('reset-servers-btn');
 
 const STORAGE_KEY = 'blossom-servers';
-const BOOTSTRAP_URL = '/blossom-bootstrap.txt';
+// Document-relative, like every other asset reference on the page — a
+// root-absolute path breaks when the site is served from a subpath
+// (e.g. GitHub Pages project sites at /dweb-tool/).
+const BOOTSTRAP_URL = 'blossom-bootstrap.txt';
 const PROBE_TIMEOUT_MS = 15 * 1000;
 const CHUNK_SIZE = 1 << 20; // 1 MiB per range request
 const MAX_PARALLEL_SERVERS = 6;
@@ -64,8 +67,12 @@ async function loadServers() {
         .split(',')
         .map(normalizeServer)
         .filter(Boolean);
+    } else {
+      log(`Could not load the bootstrap server list (HTTP ${res.status}) — add servers manually.`, 'log-warn');
     }
-  } catch { /* no bootstrap file — start empty */ }
+  } catch (err) {
+    log(`Could not load the bootstrap server list (${err.message}) — add servers manually.`, 'log-warn');
+  }
 
   const stored = localStorage.getItem(STORAGE_KEY);
   if (stored) {
